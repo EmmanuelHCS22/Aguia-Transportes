@@ -1,0 +1,6 @@
+{
+  "name": "Águia Transportes",
+  "description": "Águia Transportes — transporte particular, executivo, eventos, viagens, transfer, fretes e entregas. Transporte com segurança e compromisso.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
