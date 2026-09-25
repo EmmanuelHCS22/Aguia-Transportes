@@ -11,7 +11,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenManageModal }) => {
   return (
     <footer
       id="rodape"
-      className="relative bg-[#030304] border-t border-white/[0.08] text-white pt-16 pb-12 px-4 sm:px-6"
+      className="relative bg-[#030304] border-t border-white/[0.08] text-white pt-16 pb-12 px-4 sm:px-6 overflow-x-hidden"
     >
       <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
         {/* Logo and Brand */}
@@ -31,8 +31,31 @@ export const Footer: React.FC<FooterProps> = ({ onOpenManageModal }) => {
           &ldquo;Transporte com segurança e compromisso.&rdquo;
         </p>
 
-        {/* Menores Ícones 3D com links */}
-        <div className="flex items-center gap-6 mb-10">
+        {/* 4 Ícones 3D com links oficiais */}
+        <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-6 mb-10">
+          <a
+            href={LINKS.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="WhatsApp Águia Transportes (Geral & Executivo)"
+            className="transform hover:scale-115 transition-transform duration-200"
+          >
+            <WhatsApp3DIcon size={46} />
+          </a>
+
+          <a
+            href={LINKS.whatsappOrcamentos}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="WhatsApp Orçamentos, Fretes e Entregas"
+            className="transform hover:scale-115 transition-transform duration-200 relative group"
+          >
+            <WhatsApp3DIcon size={46} />
+            <span className="absolute -bottom-2 -right-1 px-1.5 py-0.2 rounded-full bg-amber-500 text-[8px] font-black text-black">
+              Fretes
+            </span>
+          </a>
+
           <a
             href={LINKS.instagram}
             target="_blank"
@@ -40,17 +63,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenManageModal }) => {
             title="Instagram Águia Transportes"
             className="transform hover:scale-115 transition-transform duration-200"
           >
-            <Instagram3DIcon size={44} />
-          </a>
-
-          <a
-            href={LINKS.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="WhatsApp Águia Transportes"
-            className="transform hover:scale-115 transition-transform duration-200"
-          >
-            <WhatsApp3DIcon size={44} />
+            <Instagram3DIcon size={46} />
           </a>
 
           <a
@@ -60,7 +73,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenManageModal }) => {
             title="Perfil no Google Águia Transportes"
             className="transform hover:scale-115 transition-transform duration-200"
           >
-            <Google3DIcon size={44} />
+            <Google3DIcon size={46} />
           </a>
         </div>
 

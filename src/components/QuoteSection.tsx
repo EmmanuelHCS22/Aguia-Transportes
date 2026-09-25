@@ -1,12 +1,12 @@
 import React from 'react';
-import { MessageCircle, ShieldCheck, Clock, Award } from 'lucide-react';
+import { MessageCircle, ShieldCheck, Clock, Award, Truck } from 'lucide-react';
 import { LINKS } from '../data/defaultData';
 
 export const QuoteSection: React.FC = () => {
   return (
     <section
       id="orcamento"
-      className="relative min-h-[85vh] flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-[#050505] border-t border-white/[0.06] overflow-hidden"
+      className="relative min-h-[85vh] flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-[#050505] border-t border-white/[0.06] overflow-x-hidden"
     >
       {/* Intense dark luxury ambient red glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-red-600/[0.08] rounded-full blur-[140px] pointer-events-none" />
@@ -28,22 +28,34 @@ export const QuoteSection: React.FC = () => {
           Conte com a Águia Transportes para transportar você, sua equipe, seus clientes ou suas encomendas com segurança e compromisso.
         </p>
 
-        {/* Botão grande vermelho */}
-        <div className="flex flex-col items-center">
+        {/* Botões de Contato e Orçamento */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto">
+          {/* Botão Principal WhatsApp Geral */}
           <a
             href={LINKS.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 px-8 sm:px-12 py-4 sm:py-5 rounded-2xl text-sm sm:text-base font-extrabold uppercase tracking-wider text-white btn-3d-red transition-transform active:scale-95 shadow-[0_12px_35px_rgba(220,38,38,0.5)]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white btn-3d-red transition-transform active:scale-95 shadow-[0_12px_35px_rgba(220,38,38,0.5)]"
           >
-            <MessageCircle className="w-6 h-6 fill-white" />
+            <MessageCircle className="w-5 h-5 fill-white" />
             <span>FALE CONOSCO NO WHATSAPP</span>
           </a>
 
-          <span className="text-xs text-neutral-500 mt-4">
-            Resposta rápida · Atendimento sob agendamento e urgências
-          </span>
+          {/* Botão Orçamentos, Fretes e Entregas */}
+          <a
+            href={LINKS.whatsappOrcamentos}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl text-xs sm:text-sm font-extrabold uppercase tracking-wider text-amber-300 hover:text-white bg-neutral-900/90 hover:bg-neutral-800 border border-amber-500/40 hover:border-amber-400 transition-all active:scale-95 shadow-[0_10px_25px_rgba(0,0,0,0.7)]"
+          >
+            <Truck className="w-5 h-5 text-amber-400" />
+            <span>ORÇAMENTOS, FRETES E ENTREGAS</span>
+          </a>
         </div>
+
+        <span className="text-xs text-neutral-500 block mt-4">
+          Resposta rápida · Atendimento sob agendamento e coletas urgentes
+        </span>
 
         {/* 3 Core Trust Pillars */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16 pt-10 border-t border-white/[0.08] text-left">
@@ -53,7 +65,7 @@ export const QuoteSection: React.FC = () => {
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-white">Segurança Total</h4>
-              <p className="text-xs text-neutral-400 mt-0.5">Veículos revisados e motoristas treinados com máxima discrição.</p>
+              <p className="text-xs text-neutral-400 mt-0.5">Veículos revisados e condutores experientes com discrição absoluta.</p>
             </div>
           </div>
 
@@ -73,7 +85,7 @@ export const QuoteSection: React.FC = () => {
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-white">Compromisso Real</h4>
-              <p className="text-xs text-neutral-400 mt-0.5">Atendimento sob medida para clientes corporativos e particulares.</p>
+              <p className="text-xs text-neutral-400 mt-0.5">Atendimento sob medida para clientes corporativos, eventos e particulares.</p>
             </div>
           </div>
         </div>

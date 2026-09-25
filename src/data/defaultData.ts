@@ -6,6 +6,7 @@ import { SiteData } from '../types';
 
 export const LINKS = {
   whatsapp: 'https://wa.me/message/UQRLFQWDB36DI1',
+  whatsappOrcamentos: 'https://wa.me/553499581578',
   instagram: 'https://www.instagram.com/aguia_transportesudi?igsh=MWVrMmFyaHcxOXE5bg==',
   google: 'https://share.google/NQhARgCzLLajB65Jv',
   logo: '/logo-transparent.png',

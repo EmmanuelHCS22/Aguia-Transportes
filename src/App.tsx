@@ -35,12 +35,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#f8fafc] flex flex-col relative selection:bg-red-600 selection:text-white">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#050505] text-[#f8fafc] flex flex-col relative selection:bg-red-600 selection:text-white">
       {/* 3-zone Header Navigation */}
       <Navbar onOpenManageModal={() => setIsManageModalOpen(true)} />
 
-      {/* Main Vertical Carousel Panels */}
-      <main className="flex-1 flex flex-col">
+      {/* Main Vertical Scroll Panels */}
+      <main className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">
         {/* Panel 1: Hero */}
         <HeroSection />
 

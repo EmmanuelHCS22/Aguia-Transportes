@@ -1,6 +1,6 @@
 import React from 'react';
 import { ServiceItem } from '../types';
-import { MessageCircle, Plus, Edit3 } from 'lucide-react';
+import { MessageCircle, Plus, Edit3, Truck } from 'lucide-react';
 import { LINKS } from '../data/defaultData';
 
 interface ServicesSectionProps {
@@ -14,16 +14,17 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   onOpenManageModal,
   onEditService,
 }) => {
-  const getWhatsAppLinkForService = (serviceName: string) => {
-    const text = encodeURIComponent(`Olá! Gostaria de um orçamento para o serviço de ${serviceName} com a Águia Transportes.`);
-    // Keep exact user base WhatsApp link
-    return `${LINKS.whatsapp}?text=${text}`;
+  const getWhatsAppLinkForService = (service: ServiceItem) => {
+    const isFreight = service.id === 'fretes-entregas' || service.name.toUpperCase().includes('FRETES') || service.name.toUpperCase().includes('ENTREGAS');
+    const baseUrl = isFreight ? LINKS.whatsappOrcamentos : LINKS.whatsapp;
+    const text = encodeURIComponent(`Olá! Gostaria de solicitar um orçamento para o serviço de ${service.name} com a Águia Transportes.`);
+    return `${baseUrl}?text=${text}`;
   };
 
   return (
     <section
       id="servicos"
-      className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-[#050505] border-t border-white/[0.06]"
+      className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-[#050505] border-t border-white/[0.06] overflow-x-hidden"
     >
       {/* Background ambient lighting */}
       <div className="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-red-600/[0.04] rounded-full blur-[130px] pointer-events-none" />
@@ -39,14 +40,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               NOSSOS SERVIÇOS
             </h2>
             <p className="text-sm text-neutral-400 max-w-xl mt-2">
-              Soluções completas de transporte com máxima segurança, pontualidade e discrição.
+              Soluções completas de transporte particular, executivo, eventos, viagens e fretes com máxima segurança e discrição.
             </p>
           </div>
 
           {onOpenManageModal && (
             <button
               onClick={onOpenManageModal}
-              className="self-start sm:self-auto inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-neutral-300 hover:text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-colors"
+              className="self-start sm:self-auto inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-neutral-300 hover:text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-colors shrink-0"
             >
               <Plus className="w-4 h-4 text-red-500" />
               <span>Adicionar / Trocar Fotos</span>
@@ -54,70 +55,82 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           )}
         </div>
 
-        {/* Services Grid */}
+        {/* Services Grid — Pure Vertical Scroll Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-          {services.map((service, index) => (
-            <div
-              key={service.id || index}
-              className="group relative rounded-2xl bg-[#0d0d10] border border-white/[0.08] hover:border-red-600/40 transition-all duration-300 flex flex-col overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.6)] hover:shadow-[0_12px_32px_rgba(220,38,38,0.15)] hover:-translate-y-1"
-            >
-              {/* Service Image Container */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
-                <img
-                  src={service.image}
-                  alt={service.name}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  onError={(e) => {
-                    // Styled resilient fallback
-                    (e.currentTarget as HTMLImageElement).src = '/logo-transparent.png';
-                  }}
-                />
+          {services.map((service, index) => {
+            const isFreight = service.id === 'fretes-entregas' || service.name.toUpperCase().includes('FRETES') || service.name.toUpperCase().includes('ENTREGAS');
 
-                {/* Gradient Scrim for Contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d10] via-transparent to-black/30 pointer-events-none" />
+            return (
+              <div
+                key={service.id || index}
+                className={`group relative rounded-2xl bg-[#0d0d10] border transition-all duration-300 flex flex-col overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.6)] hover:shadow-[0_12px_32px_rgba(220,38,38,0.15)] hover:-translate-y-1 ${
+                  isFreight ? 'border-red-600/40 hover:border-red-500' : 'border-white/[0.08] hover:border-red-600/40'
+                }`}
+              >
+                {/* Service Image Container */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/logo-transparent.png';
+                    }}
+                  />
 
-                {/* Service index tag */}
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/10 text-[10px] font-bold tracking-wider text-neutral-300 uppercase">
-                  {String(index + 1).padStart(2, '0')}
+                  {/* Gradient Scrim for Contrast */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d10] via-transparent to-black/30 pointer-events-none" />
+
+                  {/* Service index tag */}
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/10 text-[10px] font-bold tracking-wider text-neutral-300 uppercase flex items-center gap-1.5">
+                    {isFreight && <Truck className="w-3 h-3 text-red-400" />}
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                  </div>
+
+                  {isFreight && (
+                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-red-600/90 text-white text-[10px] font-extrabold uppercase tracking-wider shadow-md">
+                      Orçamento Direto
+                    </div>
+                  )}
+
+                  {onEditService && !isFreight && (
+                    <button
+                      onClick={() => onEditService(service)}
+                      title="Editar este serviço"
+                      className="absolute top-3 right-3 p-1.5 rounded-md bg-black/75 hover:bg-red-600/80 text-white/80 hover:text-white backdrop-blur-md border border-white/10 transition-colors opacity-0 group-hover:opacity-100"
+                    >
+                      <Edit3 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </div>
 
-                {onEditService && (
-                  <button
-                    onClick={() => onEditService(service)}
-                    title="Editar este serviço"
-                    className="absolute top-3 right-3 p-1.5 rounded-md bg-black/75 hover:bg-red-600/80 text-white/80 hover:text-white backdrop-blur-md border border-white/10 transition-colors opacity-0 group-hover:opacity-100"
-                  >
-                    <Edit3 className="w-3.5 h-3.5" />
-                  </button>
-                )}
+                {/* Card Body */}
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-base sm:text-lg font-bold tracking-tight text-white uppercase font-heading group-hover:text-red-400 transition-colors mb-2">
+                      {service.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-neutral-400 font-normal leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-white/[0.06]">
+                    <a
+                      href={getWhatsAppLinkForService(service)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider text-white btn-3d-red flex items-center justify-center gap-2 text-center shadow-md active:scale-95"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                      <span>{isFreight ? 'Orçar Frete / Entrega' : 'Solicitar Orçamento'}</span>
+                    </a>
+                  </div>
+                </div>
               </div>
-
-              {/* Card Body */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold tracking-tight text-white uppercase font-heading group-hover:text-red-400 transition-colors mb-2">
-                    {service.name}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-neutral-400 font-normal leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between gap-3">
-                  <a
-                    href={getWhatsAppLinkForService(service.name)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider text-white btn-3d-red flex items-center justify-center gap-2 text-center"
-                  >
-                    <MessageCircle className="w-3.5 h-3.5 fill-white" />
-                    <span>Solicitar Orçamento</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

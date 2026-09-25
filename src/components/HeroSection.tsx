@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, ChevronDown, ShieldCheck } from 'lucide-react';
+import { MessageCircle, ChevronDown, ShieldCheck, Truck } from 'lucide-react';
 import { LINKS } from '../data/defaultData';
 
 export const HeroSection: React.FC = () => {
@@ -20,7 +20,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-between items-center px-4 sm:px-6 pt-24 pb-8 overflow-hidden bg-[#050505]"
+      className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-between items-center px-4 sm:px-6 pt-24 pb-8 overflow-x-hidden bg-[#050505]"
     >
       {/* Subtle executive ambient glow effects */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[600px] h-[340px] sm:h-[600px] bg-red-600/[0.08] rounded-full blur-[110px] pointer-events-none" />
@@ -70,7 +70,7 @@ export const HeroSection: React.FC = () => {
         </p>
 
         {/* SUBTÍTULO DESCRITIVO */}
-        <p className="text-sm sm:text-base text-neutral-400 max-w-xl font-normal leading-relaxed mb-8">
+        <p className="text-sm sm:text-base text-neutral-400 max-w-xl font-normal leading-relaxed mb-6">
           Transporte particular, executivo, eventos, viagens, entregas e muito mais.
         </p>
 
@@ -88,14 +88,25 @@ export const HeroSection: React.FC = () => {
 
           <button
             onClick={scrollToServices}
-            className="w-full sm:w-1/2 flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-200 hover:text-white border border-white/15 bg-white/[0.03] hover:bg-white/[0.08] transition-all duration-200"
+            className="w-full sm:w-1/2 flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-200 hover:text-white border border-white/15 bg-white/[0.03] hover:bg-white/[0.08] transition-all duration-200 cursor-pointer"
           >
             <span>Conheça Nossos Serviços</span>
           </button>
         </div>
+
+        {/* Quick link to Fretes & Entregas */}
+        <a
+          href={LINKS.whatsappOrcamentos}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-neutral-400 hover:text-amber-400 transition-colors py-1 px-3 rounded-full hover:bg-white/[0.04]"
+        >
+          <Truck className="w-3.5 h-3.5 text-amber-500" />
+          <span>Precisa de Fretes ou Entregas? Clique aqui para cotação rápida</span>
+        </a>
       </div>
 
-      {/* Scroll indicator to invite vertical panel transition */}
+      {/* Scroll indicator to invite vertical navigation */}
       <div className="flex flex-col items-center gap-1 text-neutral-500 pt-4 z-10">
         <span className="text-[11px] uppercase tracking-widest font-semibold text-neutral-400">
           Role para navegar
@@ -103,7 +114,7 @@ export const HeroSection: React.FC = () => {
         <button
           onClick={scrollToNext}
           aria-label="Rolar para próxima seção"
-          className="p-1.5 rounded-full hover:text-red-500 hover:bg-white/[0.05] transition-colors animate-bounce"
+          className="p-1.5 rounded-full hover:text-red-500 hover:bg-white/[0.05] transition-colors animate-bounce cursor-pointer"
         >
           <ChevronDown className="w-5 h-5" />
         </button>
